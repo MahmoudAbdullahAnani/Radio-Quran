@@ -1,34 +1,116 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, Button, Pressable, Text, Image } from "react-native";
+import { View, StyleSheet, Pressable, Text, Image } from "react-native";
 import { Audio } from "expo-av";
+import { useRecoilState } from "recoil";
+import {
+  audioURIPlayState,
+  SoundState,
+  toggleSoundStateData,
+} from "@/states/RadioState";
 
-// Image
-import { PlayAutioSVG } from "./../../../assets/Audio/AutioSVG";
-export default function AudioPlayer(props: { uri: string; name: string }) {
-  const [sound, setSound] = useState();
+export default function AudioPlayer() {
+  // State Management
+  const [audioURIPlay] = useRecoilState(audioURIPlayState);
+  const [sound, setSound] = useRecoilState(SoundState);
+  const [soundLoading, setSoundLoading] = useState<boolean>(false);
+  const [toggleSoundState, setToggleSound] =
+    useRecoilState(toggleSoundStateData);
 
-  const playSound = async () => {
-    console.log(`press ${props.uri}`);
+  const getSound = async () => {
+    if (audioURIPlay.url !== "NOT_USE" && audioURIPlay.url) {
+      console.log(`press ${audioURIPlay.url}`);
+      setSoundLoading(true);
+      try {
+        const { sound } = await Audio.Sound.createAsync({
+          uri: audioURIPlay.url,
+        });
+        setSound(sound);
+      } catch (error) {
+        console.error("Error loading sound:", error);
+      } finally {
+        setSoundLoading(false);
+      }
+    }
+  };
 
-    const { sound } = await Audio.Sound.createAsync({
-      uri: props.uri,
-    });
-    // @ts-ignore
-    setSound(sound);
-    await sound.playAsync(); // Play the sound
+  const toggleSound = async () => {
+    if (sound) {
+      try {
+        toggleSoundState ? await sound.stopAsync() : await sound.playAsync();
+        setToggleSound(!toggleSoundState);
+      } catch (error) {
+        console.error("Error toggling sound:", error);
+      }
+    }
   };
 
   // Cleanup the sound on component unmount
   useEffect(() => {
-    return sound
-      ? () => {
-          // @ts-ignore
-          sound.unloadAsync(); // Unload sound to free up resources
-        }
-      : undefined;
-  }, [sound]);
+    if (audioURIPlay.url !== "NOT_USE") {
+      getSound();
+    }
 
+    return () => {
+      if (sound) {
+        sound
+          .unloadAsync()
+          .then(() => {
+            setSound(null);
+          })
+          .catch((error: string) => {
+            console.error("Error unloading sound:", error);
+          });
+      }
+    };
+  }, [audioURIPlay.url, sound]); // Added 'sound' to dependencies to track sound updates
+
+  if (audioURIPlay.url === "NOT_USE" || audioURIPlay.name === "NOT_USE") {
+    return null;
+  }
   return (
+    <View className={`h-[100] bg-slate-200`}>
+      <View style={styles.playr} className={``}>
+        <Pressable onPress={toggleSound}>
+          <Image
+            style={{ width: 50, height: 50 }}
+            source={
+              soundLoading
+                ? require(`./../../../assets/loading.gif`)
+                : toggleSoundState
+                ? require(`./../../../assets/Audio/pause.jpg`)
+                : require(`./../../../assets/Audio/download.jpg`)
+            }
+          />
+        </Pressable>
+        <Text style={styles.textPlayr}>
+          {audioURIPlay.name.length > 60
+            ? `${audioURIPlay.name.slice(20)}..`
+            : audioURIPlay.name}
+        </Text>
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  playr: {
+    paddingHorizontal: 90,
+    width: "100%",
+    height: 100,
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  textPlayr: {
+    textAlign: "center",
+    fontSize: 30,
+    fontWeight: "bold",
+  },
+});
+
+/*
+
     <Pressable style={{ flex: 1 }} onPress={playSound}>
       <View
         style={{
@@ -51,18 +133,10 @@ export default function AudioPlayer(props: { uri: string; name: string }) {
           source={require(`./../../../assets/Audio/download.jpg`)}
         />
         <Text style={{ textAlign: "center" }}>
-          {props.name.length > 60 ? `${props.name.slice(20)}..` : props.name}
+          {audioURIPlay.name.length > 60
+            ? `${audioURIPlay.name.slice(20)}..`
+            : audioURIPlay.name}
         </Text>
       </View>
     </Pressable>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    backgroundColor: "#ecf0f1",
-    padding: 10,
-  },
-});
+*/
