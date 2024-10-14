@@ -62,7 +62,7 @@ export default function AudioPlayer() {
           });
       }
     };
-  }, [audioURIPlay.url, sound]); // Added 'sound' to dependencies to track sound updates
+  }, [audioURIPlay.url]); // Added 'sound' to dependencies to track sound updates
 
   if (audioURIPlay.url === "NOT_USE" || audioURIPlay.name === "NOT_USE") {
     return null;
@@ -94,9 +94,9 @@ export default function AudioPlayer() {
 
 const styles = StyleSheet.create({
   playr: {
-    paddingHorizontal: 90,
+    paddingHorizontal: 30,
     width: "100%",
-    height: 100,
+    height: 50,
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
   },
   textPlayr: {
     textAlign: "center",
-    fontSize: 30,
+    fontSize: 20,
     fontWeight: "bold",
   },
 });

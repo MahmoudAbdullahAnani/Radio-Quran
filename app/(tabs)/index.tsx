@@ -7,15 +7,17 @@ import AudioPlayer from "@/components/Radio/Items/AudioPlayer";
 
 export default function HomeScreen() {
   return (
-    <ParallaxScrollView
-      headerImage={<HeroSectionRadio />}
-      headerBackgroundColor={{
-        dark: "#000",
-        light: "#fff",
-      }}
-    >
-      <Radios />
-      {/* <AudioPlayer /> */}
-    </ParallaxScrollView>
+    <>
+      <ParallaxScrollView
+        headerImage={<HeroSectionRadio />}
+        headerBackgroundColor={{
+          dark: "#000",
+          light: "#d5d5d5",
+        }}
+      >
+        <Radios />
+        {/* <AudioPlayer /> */}
+      </ParallaxScrollView>
+    </>
   );
 }

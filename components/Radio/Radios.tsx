@@ -1,7 +1,16 @@
 import ParallaxScrollView from "@/components/ParallaxScrollView";
 import HeroSectionRadio from "@/components/Radio/HeroSection-Radio/HeroSectionRadio";
-import { Dimensions, FlatList, View } from "react-native";
-
+import {
+  Dimensions,
+  FlatList,
+  Image,
+  Pressable,
+  Text,
+  useColorScheme,
+  View,
+} from "react-native";
+// Images
+import { ArrowUpSVG } from "./../../assets/Audio/AutioSVG";
 // Fake Data
 import RadioFakeData from "../../lip/FakeData.json";
 import { Radio, RadiosResponse } from "@/Interfaces/Radio";
@@ -17,29 +26,38 @@ const RadioData: RadiosResponse = RadioFakeData;
 const windowWidth = Dimensions.get("window");
 
 export default function Radios() {
+  const colorScheme = useColorScheme();
+  const colorText = colorScheme === "dark" ? "#fff" : "#000";
   // State Management
   const [kewordSearch, setKewordSearch] = useRecoilState(kewordSearchState);
 
   // Data
+  const [maxViewItems, setMaxViewItems] = useState(10);
+  const [maxLengthOfData, setMaxLengthOfData] = useState(0);
+
   const [radioDat, setRadioDat] = useState(RadioData);
   // Filter Data
-  const filteredRadios = radioDat.radios.filter((radio) =>
-    kewordSearch === "NOT_USE"
-      ? radioDat
-      : kewordSearch === ""
-      ? radioDat
-      : radio.name.toLowerCase().includes(kewordSearch.toLowerCase())
-  );
+  const filteredRadios = radioDat.radios
+    .filter((radio) =>
+      kewordSearch === "NOT_USE"
+        ? radioDat
+        : kewordSearch === ""
+        ? radioDat
+        : radio.name.toLowerCase().includes(kewordSearch.toLowerCase())
+    )
+    .slice(0, maxViewItems);
+
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getAllRadioData();
-      setRadioDat(data as RadiosResponse);
+      const data: RadiosResponse = await getAllRadioData();
+      setRadioDat(data);
+      setMaxLengthOfData(data.radios.length);
     };
     fetchData();
     return () => {};
   }, []);
   return (
-    <View className={`flex-1`}>
+    <View className={`flex-1`} style={{}}>
       {/* 0:400 */}
       {windowWidth.width <= 400 ? (
         <FlatList
@@ -72,6 +90,44 @@ export default function Radios() {
           columnWrapperStyle={{ justifyContent: "space-between", gap: 20 }}
         />
       )}
+      <View>
+        <Pressable
+          style={({ pressed }) => [
+            {
+              backgroundColor: pressed
+                ? colorScheme === "dark"
+                  ? "#457169"
+                  : "#6caba0"
+                : colorScheme === "dark"
+                ? "#62a99d"
+                : "#7fddcd",
+            },
+            {
+              flex: 1,
+              width: "100%",
+              height: 40,
+              justifyContent: "center",
+              alignItems: "center",
+              borderRadius: 10,
+            },
+          ]}
+          onPress={() =>
+            maxViewItems >= maxLengthOfData
+              ? setMaxViewItems(20)
+              : setMaxViewItems(maxViewItems + 20)
+          }
+        >
+          <Text
+            style={{
+              color: colorText,
+              fontSize: 18,
+              fontWeight: "bold",
+            }}
+          >
+            {maxViewItems >= maxLengthOfData ? "عرض اقل" : "عرض المزيد"}
+          </Text>
+        </Pressable>
+      </View>
     </View>
   );
 }

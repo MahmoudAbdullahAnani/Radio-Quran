@@ -18,3 +18,28 @@ export const PlayAutioSVG = (props) => (
     <Rect x={0} y={0} width={36} height={36} fillOpacity={0} />
   </Svg>
 );
+
+export const ArrowUpSVG = (props) => (
+  <Svg
+    width="800px"
+    height="800px"
+    viewBox="0 0 15 15"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <Path d="M7.5 3L15 11H0L7.5 3Z" fill="#000000" />
+  </Svg>
+);
+export const ArrowDownSVG = (props) => (
+  <Svg
+    width="800px"
+    height="800px"
+    viewBox="0 0 15 15"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <Path d="M7.49988 12L-0.00012207 4L14.9999 4L7.49988 12Z" fill="#000000" />
+  </Svg>
+);
