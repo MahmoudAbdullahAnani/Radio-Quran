@@ -26,6 +26,10 @@ export const IsStarted = atom({
   key: "IsStarted",
   default: false as boolean,
 });
+export const wishlistDataItemsState = atom({
+  key: "wishlistDataItemsState",
+  default: [] as Radio[],
+});
 export const audioURIPlayState = atom({
   key: "audioURIPlayState",
   default: {

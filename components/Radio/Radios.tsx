@@ -24,8 +24,7 @@ const RadioData: RadiosResponse = RadioFakeData;
 
 // Device
 export const { width, height } = Dimensions.get("window");
-
-export default function Radios() {
+export default function Radios(functoinGetData: any) {
   const colorScheme = useColorScheme();
   const colorText = colorScheme === "dark" ? "#fff" : "#000";
   // State Management
@@ -49,7 +48,7 @@ export default function Radios() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data: RadiosResponse = await getAllRadioData();
+      const data: RadiosResponse = await functoinGetData();
       setRadioDat(data);
       // setMaxViewItems(data.radios.length);
       setMaxLengthOfData(data.radios.length);
@@ -128,8 +127,8 @@ export default function Radios() {
               maxViewItems >= maxLengthOfData
                 ? setMaxViewItems(width <= 400 ? 10 : 50)
                 : setMaxViewItems(maxViewItems + 10);
-              console.log(maxViewItems);
-              console.log(maxLengthOfData);
+              //console.log(maxViewItems);
+              //console.log(maxLengthOfData);
             }}
           >
             <Text

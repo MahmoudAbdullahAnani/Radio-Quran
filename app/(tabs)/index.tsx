@@ -3,6 +3,7 @@ import HeroSectionRadio from "@/components/Radio/HeroSection-Radio/HeroSectionRa
 import RadioItemWeb from "@/components/Radio/Items/RadioItemWeb";
 
 import Radios from "@/components/Radio/Radios";
+import { getAllRadioData } from "@/lip/FetchData";
 import { IsStarted } from "@/states/RadioState";
 import { View } from "react-native";
 import { useRecoilState } from "recoil";
@@ -20,7 +21,7 @@ export default function HomeScreen() {
         }}
       >
         {/* <AudioPlayer /> */}
-        <Radios />
+        <Radios functoinGetData={getAllRadioData} />
       </ParallaxScrollView>
 
       <View style={{ display: "none" }}>{isStarted && <RadioItemWeb />}</View>

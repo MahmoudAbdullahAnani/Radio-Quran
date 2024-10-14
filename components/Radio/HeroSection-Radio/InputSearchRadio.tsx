@@ -28,6 +28,7 @@ export default function InputSearchRadio() {
         placeholderTextColor="#888"
         className={`text-2xl w-full h-full font-semibold text-center`}
         style={{ color: "black" }}
+        value={kewordSearch === "NOT_USE" ? "" : kewordSearch}
         onChangeText={(text) => {
           // Handle search input change
           setMaxViewItems(width <= 400 ? 10 : 50);

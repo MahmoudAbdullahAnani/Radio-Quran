@@ -9,6 +9,7 @@ import {
   IsStarted,
   SoundState,
   toggleSoundStateData,
+  wishlistDataItemsState,
 } from "@/states/RadioState";
 import { width } from "../Radios";
 import AudioBar from "@/assets/Audio/AudioBar";
@@ -47,7 +48,7 @@ export default function RadioItem({
     setIsStarted(true);
     setAudioURIPlay({ ...radio, name });
 
-    // console.log(AudioURIPlay);
+    // //console.log(AudioURIPlay);
   };
   // Hover
   const [hoverItem, setHoverItem] = useState(false);
@@ -56,7 +57,9 @@ export default function RadioItem({
     setHoverItem((prev) => !prev);
   };
   const [itemWishlist, setitemWishlist] = useState<boolean | undefined>(false);
-
+  const [wishlistDataItems, setWishlistDataItemsState] = useRecoilState(
+    wishlistDataItemsState
+  );
   async function setWishlistItems() {
     try {
       // fake data: https://backup.qurango.net/radio/ahmed_altrabulsi+https://backup.qurango.net/radio/alqaria_yassen+https://backup.qurango.net/radio/ahmed_altrabulsi+
@@ -65,12 +68,25 @@ export default function RadioItem({
       if (wishlist !== null) {
         // value previously stored
         setitemWishlist(!wishlistArray?.includes(radio.url));
+        !wishlistArray?.includes(radio.url) &&
+          setWishlistDataItemsState((prev) => [
+            ...new Set([
+              ...prev,
+              {
+                url: radio.url,
+                name: radio.name,
+                id: radio.id,
+                recent_date: radio.recent_date,
+              },
+            ]),
+          ]);
+
         return wishlist;
       }
       return "Not Found wishlist";
     } catch (e) {
       // error reading value
-      console.log("Cant't get data to local storage. Error:" + e);
+      //console.log("Cant't get data to local storage. Error:" + e);
     }
   }
   useEffect(() => {
@@ -79,24 +95,6 @@ export default function RadioItem({
   }, []);
 
   const changeWishList = async () => {
-    // Get Data
-    // try {
-    //   // fake data: https://backup.qurango.net/radio/ahmed_altrabulsi+https://backup.qurango.net/radio/alqaria_yassen+https://backup.qurango.net/radio/ahmed_altrabulsi+
-    //   const wishlist = await AsyncStorage.getItem("wishlist");
-    //   if (wishlist !== null) {
-    //     // value previously stored
-    //     console.log(wishlist);
-
-    //     return wishlist;
-    //   }
-    //   return "Not Found wishlist";
-    // } catch (e) {
-    //   // error reading value
-    //   console.log("Cant't get data to local storage. Error:" + e);
-    // }
-
-    // Set Data
-
     try {
       // remove item from wishlist
       if (itemWishlist) {
@@ -104,7 +102,7 @@ export default function RadioItem({
         const wishlistArray = wishlist?.split("+");
         wishlistArray?.filter((url) => url !== radio.url);
         setitemWishlist(false);
-        // console.log(newWishlistArray);
+        // //console.log(newWishlistArray);
 
         // await AsyncStorage.setItem("wishlist", `${}+`);
       } else {
@@ -113,12 +111,12 @@ export default function RadioItem({
         const wishlistArray = wishlist?.split("+");
         wishlistArray?.push(radio.url);
         setitemWishlist(true);
-        // console.log(newWishlistArray);
+        // //console.log(newWishlistArray);
         await AsyncStorage.setItem("wishlist", `${wishlistArray?.join("+")}`);
       }
     } catch (e) {
       // saving error
-      console.log("Cant't save data to local storage. Error:" + e);
+      //console.log("Cant't save data to local storage. Error:" + e);
     }
   };
 
