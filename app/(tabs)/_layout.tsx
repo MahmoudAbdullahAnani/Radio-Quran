@@ -75,18 +75,18 @@ export default function TabLayout() {
               fontSize: 22,
               fontWeight: "bold",
               position: "relative",
-              left: 20,
+              left: 0,
             },
             tabBarIcon: ({ focused }) => (
               <TabBarIcon
                 name={focused ? "reader-sharp" : "reader-outline"}
                 color={"#32c5a2"}
-                style={{ marginLeft: 50, height: 27 }}
+                style={{ marginLeft: 0, height: 27 }}
               />
             ),
           }}
         />
-        <Tabs.Screen
+        {/* <Tabs.Screen
           name="wishlist"
           options={{
             tabBarLabelStyle: {
@@ -105,7 +105,7 @@ export default function TabLayout() {
               />
             ),
           }}
-        />
+        /> */}
         <Tabs.Screen
           name="index"
           options={{

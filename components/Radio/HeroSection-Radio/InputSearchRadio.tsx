@@ -1,14 +1,21 @@
 import React from "react";
-import { TextInput, View } from "react-native";
+import { Image, Text, TextInput, View } from "react-native";
 // State Mangemant
 import { InitialMaxViewItems, kewordSearchState } from "@/states/RadioState";
 import { useRecoilState } from "recoil";
 import { width } from "../Radios";
+import { useNavigationState } from "@react-navigation/native";
 
 export default function InputSearchRadio() {
   const [kewordSearch, setKewordSearch] = useRecoilState(kewordSearchState);
 
   const [, setMaxViewItems] = useRecoilState(InitialMaxViewItems);
+  const currentTabIndex = useNavigationState((state) => state.index);
+
+  const currentTabName = useNavigationState(
+    (state) => state.routes[currentTabIndex].name
+  );
+
   return (
     <View
       style={{
@@ -23,19 +30,29 @@ export default function InputSearchRadio() {
       }}
       className={`absolute`}
     >
-      <TextInput
-        placeholder="محمد صديق المنشاوي"
-        placeholderTextColor="#888"
-        className={`text-2xl w-full h-full font-semibold text-center`}
-        style={{ color: "black" }}
-        value={kewordSearch === "NOT_USE" ? "" : kewordSearch}
-        onChangeText={(text) => {
-          // Handle search input change
-          setMaxViewItems(width <= 400 ? 10 : 50);
-          setKewordSearch(text);
-          // You can add your search logic here
-        }}
-      />
+      {["readQuran"].includes(currentTabName) ? (
+        <View className={`w-full h-full font-semibold text-center`}>
+          <Text
+            style={{ fontSize: 22, textAlign: "center", fontWeight: "bold" }}
+          >
+            اقرأ علي الاقل كل يوم صفحة
+          </Text>
+        </View>
+      ) : (
+        <TextInput
+          placeholder="محمد صديق المنشاوي"
+          placeholderTextColor="#888"
+          className={`text-2xl w-full h-full font-semibold text-center`}
+          style={{ color: "black" }}
+          value={kewordSearch === "NOT_USE" ? "" : kewordSearch}
+          onChangeText={(text) => {
+            // Handle search input change
+            setMaxViewItems(width <= 400 ? 10 : 50);
+            setKewordSearch(text);
+            // You can add your search logic here
+          }}
+        />
+      )}
     </View>
   );
 }

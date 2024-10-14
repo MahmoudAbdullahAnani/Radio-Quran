@@ -29,7 +29,7 @@ export default function wishlistScreen() {
         }}
       >
         <FlatList
-          data={wishlistDataItems}
+          data={[...new Set(wishlistDataItems)]}
           renderItem={({ item, index }: { item: Radio; index: number }) => (
             <RadioItem radio={item} index={index} />
           )}

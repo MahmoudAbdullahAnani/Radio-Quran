@@ -36,15 +36,14 @@ export default function Radios(functoinGetData: any) {
 
   const [radioDat, setRadioDat] = useState(RadioData);
   // Filter Data
-  const filteredRadios = radioDat.radios
-    .filter((radio) =>
-      kewordSearch === "NOT_USE"
-        ? radioDat
-        : kewordSearch === ""
-        ? radioDat
-        : radio.name.toLowerCase().includes(kewordSearch.toLowerCase())
-    )
-    .slice(0, maxViewItems);
+  const filteredRadios = radioDat.radios.filter((radio) =>
+    kewordSearch === "NOT_USE"
+      ? radioDat
+      : kewordSearch === ""
+      ? radioDat
+      : radio.name.toLowerCase().includes(kewordSearch.toLowerCase())
+  );
+  // .slice(0, maxViewItems);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -102,48 +101,44 @@ export default function Radios(functoinGetData: any) {
       <View>
         {/* onst [maxViewItems, setMaxViewItems] = useState(width <= 400 ? 10 : 50);
   const [maxLengthOfData, setMaxLengthOfData] = useState(0); */}
-        {maxLengthOfData >= (width <= 400 ? 10 : 50) ? (
-          <Pressable
-            style={({ pressed }) => [
-              {
-                backgroundColor: pressed
-                  ? colorScheme === "dark"
-                    ? "#457169"
-                    : "#6caba0"
-                  : colorScheme === "dark"
-                  ? "#62a99d"
-                  : "#7fddcd",
-              },
-              {
-                flex: 1,
-                width: "100%",
-                height: 40,
-                justifyContent: "center",
-                alignItems: "center",
-                borderRadius: 10,
-              },
-            ]}
-            onPress={() => {
-              maxViewItems >= maxLengthOfData
-                ? setMaxViewItems(width <= 400 ? 10 : 50)
-                : setMaxViewItems(maxViewItems + 10);
-              //console.log(maxViewItems);
-              //console.log(maxLengthOfData);
+        {/* <Pressable
+          style={({ pressed }) => [
+            {
+              backgroundColor: pressed
+                ? colorScheme === "dark"
+                  ? "#457169"
+                  : "#6caba0"
+                : colorScheme === "dark"
+                ? "#62a99d"
+                : "#7fddcd",
+            },
+            {
+              flex: 1,
+              width: "100%",
+              height: 40,
+              justifyContent: "center",
+              alignItems: "center",
+              borderRadius: 10,
+            },
+          ]}
+          onPress={() => {
+            maxViewItems >= maxLengthOfData
+              ? setMaxViewItems(width <= 400 ? 10 : 50)
+              : setMaxViewItems(maxViewItems + 10);
+            //console.log(maxViewItems);
+            //console.log(maxLengthOfData);
+          }}
+        >
+          <Text
+            style={{
+              color: colorText,
+              fontSize: 18,
+              fontWeight: "bold",
             }}
           >
-            <Text
-              style={{
-                color: colorText,
-                fontSize: 18,
-                fontWeight: "bold",
-              }}
-            >
-              {maxViewItems >= maxLengthOfData ? "عرض اقل" : "عرض المزيد"}
-            </Text>
-          </Pressable>
-        ) : (
-          <></>
-        )}
+            {maxViewItems >= maxLengthOfData ? "عرض اقل" : "عرض المزيد"}
+          </Text>
+        </Pressable> */}
       </View>
     </View>
   );

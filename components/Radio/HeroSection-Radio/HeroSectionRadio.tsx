@@ -5,7 +5,7 @@ import InputSearchRadio from "./InputSearchRadio";
 export default function HeroSectionRadio() {
   const colorScheme = useColorScheme();
 
-  const colorText = colorScheme === "dark" ? "text-[#fff]" : "text-[#000]";
+  // const colorText = colorScheme === "dark" ? "text-[#fff]" : "text-[#000]";
 
   const images = [
     require("./../../../assets/HeroSection/1.jpg"),
