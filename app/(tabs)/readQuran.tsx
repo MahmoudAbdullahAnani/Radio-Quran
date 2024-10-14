@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-export default function AboutScreen() {
+export default function TabTwoScreen() {
   return <></>;
 }
 

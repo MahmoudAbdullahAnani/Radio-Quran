@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Image, Text, TextInput, useColorScheme, View } from "react-native";
+import { Image, useColorScheme, View } from "react-native";
 import InputSearchRadio from "./InputSearchRadio";
 
 export default function HeroSectionRadio() {

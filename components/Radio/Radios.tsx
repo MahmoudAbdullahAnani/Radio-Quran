@@ -17,13 +17,13 @@ import { Radio, RadiosResponse } from "@/Interfaces/Radio";
 import { useEffect, useState } from "react";
 import { getAllRadioData } from "@/lip/FetchData";
 import RadioItem from "@/components/Radio/Items/RadioItem";
-import { kewordSearchState } from "@/states/RadioState";
+import { InitialMaxViewItems, kewordSearchState } from "@/states/RadioState";
 import { useRecoilState } from "recoil";
 
 const RadioData: RadiosResponse = RadioFakeData;
 
 // Device
-const windowWidth = Dimensions.get("window");
+export const { width, height } = Dimensions.get("window");
 
 export default function Radios() {
   const colorScheme = useColorScheme();
@@ -32,7 +32,7 @@ export default function Radios() {
   const [kewordSearch, setKewordSearch] = useRecoilState(kewordSearchState);
 
   // Data
-  const [maxViewItems, setMaxViewItems] = useState(10);
+  const [maxViewItems, setMaxViewItems] = useRecoilState(InitialMaxViewItems);
   const [maxLengthOfData, setMaxLengthOfData] = useState(0);
 
   const [radioDat, setRadioDat] = useState(RadioData);
@@ -51,27 +51,35 @@ export default function Radios() {
     const fetchData = async () => {
       const data: RadiosResponse = await getAllRadioData();
       setRadioDat(data);
+      // setMaxViewItems(data.radios.length);
       setMaxLengthOfData(data.radios.length);
     };
     fetchData();
     return () => {};
   }, []);
   return (
-    <View className={`flex-1`} style={{}}>
+    <View
+      className={`flex-1`}
+      style={{ backgroundColor: colorScheme === "light" ? "#f2f2f2" : "#000" }}
+    >
       {/* 0:400 */}
-      {windowWidth.width <= 400 ? (
+      {width <= 400 ? (
         <FlatList
           data={filteredRadios}
-          renderItem={({ item }: { item: Radio }) => <RadioItem {...item} />}
+          renderItem={({ item, index }: { item: Radio; index: number }) => (
+            <RadioItem radio={item} index={index} />
+          )}
           keyExtractor={(item: Radio) =>
             `${Math.random()}-${item.id.toString()}`
           }
         />
       ) : // 400:800
-      windowWidth.width <= 800 ? (
+      width <= 800 ? (
         <FlatList
           data={filteredRadios}
-          renderItem={({ item }: { item: Radio }) => <RadioItem {...item} />}
+          renderItem={({ item, index }: { item: Radio; index: number }) => (
+            <RadioItem radio={item} index={index} />
+          )}
           keyExtractor={(item: Radio) =>
             `${Math.random()}-${item.id.toString()}`
           }
@@ -82,7 +90,9 @@ export default function Radios() {
         // 800:
         <FlatList
           data={filteredRadios}
-          renderItem={({ item }: { item: Radio }) => <RadioItem {...item} />}
+          renderItem={({ item, index }: { item: Radio; index: number }) => (
+            <RadioItem radio={item} index={index} />
+          )}
           keyExtractor={(item: Radio) =>
             `${Math.random()}-${item.id.toString()}`
           }
@@ -91,42 +101,50 @@ export default function Radios() {
         />
       )}
       <View>
-        <Pressable
-          style={({ pressed }) => [
-            {
-              backgroundColor: pressed
-                ? colorScheme === "dark"
-                  ? "#457169"
-                  : "#6caba0"
-                : colorScheme === "dark"
-                ? "#62a99d"
-                : "#7fddcd",
-            },
-            {
-              flex: 1,
-              width: "100%",
-              height: 40,
-              justifyContent: "center",
-              alignItems: "center",
-              borderRadius: 10,
-            },
-          ]}
-          onPress={() =>
-            maxViewItems >= maxLengthOfData
-              ? setMaxViewItems(20)
-              : setMaxViewItems(maxViewItems + 20)
-          }
-        >
-          <Text
-            style={{
-              color: colorText,
-              fontSize: 18,
-              fontWeight: "bold",
+        {/* onst [maxViewItems, setMaxViewItems] = useState(width <= 400 ? 10 : 50);
+  const [maxLengthOfData, setMaxLengthOfData] = useState(0); */}
+        {maxLengthOfData >= (width <= 400 ? 10 : 50) ? (
+          <Pressable
+            style={({ pressed }) => [
+              {
+                backgroundColor: pressed
+                  ? colorScheme === "dark"
+                    ? "#457169"
+                    : "#6caba0"
+                  : colorScheme === "dark"
+                  ? "#62a99d"
+                  : "#7fddcd",
+              },
+              {
+                flex: 1,
+                width: "100%",
+                height: 40,
+                justifyContent: "center",
+                alignItems: "center",
+                borderRadius: 10,
+              },
+            ]}
+            onPress={() => {
+              maxViewItems >= maxLengthOfData
+                ? setMaxViewItems(width <= 400 ? 10 : 50)
+                : setMaxViewItems(maxViewItems + 10);
+              console.log(maxViewItems);
+              console.log(maxLengthOfData);
             }}
           >
-            {maxViewItems >= maxLengthOfData ? "عرض اقل" : "عرض المزيد"}
-          </Text>
-        </Pressable>
+            <Text
+              style={{
+                color: colorText,
+                fontSize: 18,
+                fontWeight: "bold",
+              }}
+            >
+              {maxViewItems >= maxLengthOfData ? "عرض اقل" : "عرض المزيد"}
+            </Text>
+          </Pressable>
+        ) : (
+          <></>
+        )}
       </View>
     </View>
   );

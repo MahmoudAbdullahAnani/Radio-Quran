@@ -1,23 +1,29 @@
 import ParallaxScrollView from "@/components/ParallaxScrollView";
 import HeroSectionRadio from "@/components/Radio/HeroSection-Radio/HeroSectionRadio";
-import { Dimensions, FlatList, View } from "react-native";
+import RadioItemWeb from "@/components/Radio/Items/RadioItemWeb";
 
 import Radios from "@/components/Radio/Radios";
-import AudioPlayer from "@/components/Radio/Items/AudioPlayer";
+import { IsStarted } from "@/states/RadioState";
+import { View } from "react-native";
+import { useRecoilState } from "recoil";
 
 export default function HomeScreen() {
+  const [isStarted] = useRecoilState(IsStarted);
+
   return (
     <>
       <ParallaxScrollView
         headerImage={<HeroSectionRadio />}
         headerBackgroundColor={{
           dark: "#000",
-          light: "#d5d5d5",
+          light: "#f2f2f2",
         }}
       >
-        <Radios />
         {/* <AudioPlayer /> */}
+        <Radios />
       </ParallaxScrollView>
+
+      <View style={{ display: "none" }}>{isStarted && <RadioItemWeb />}</View>
     </>
   );
 }

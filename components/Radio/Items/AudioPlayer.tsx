@@ -4,6 +4,7 @@ import { Audio } from "expo-av";
 import { useRecoilState } from "recoil";
 import {
   audioURIPlayState,
+  changeAudio,
   SoundState,
   toggleSoundStateData,
 } from "@/states/RadioState";
@@ -12,7 +13,7 @@ export default function AudioPlayer() {
   // State Management
   const [audioURIPlay] = useRecoilState(audioURIPlayState);
   const [sound, setSound] = useRecoilState(SoundState);
-  const [soundLoading, setSoundLoading] = useState<boolean>(false);
+  const [soundLoading, setSoundLoading] = useRecoilState<boolean>(changeAudio);
   const [toggleSoundState, setToggleSound] =
     useRecoilState(toggleSoundStateData);
 
@@ -36,8 +37,10 @@ export default function AudioPlayer() {
   const toggleSound = async () => {
     if (sound) {
       try {
+        setSoundLoading(true);
         toggleSoundState ? await sound.stopAsync() : await sound.playAsync();
         setToggleSound(!toggleSoundState);
+        setSoundLoading(false);
       } catch (error) {
         console.error("Error toggling sound:", error);
       }

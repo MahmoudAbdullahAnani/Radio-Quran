@@ -5,59 +5,125 @@ import { TabBarIcon } from "@/components/navigation/TabBarIcon";
 import { Colors } from "@/constants/Colors";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import "../../global.css";
+import { Image, Pressable, Text, View } from "react-native";
+import { useRecoilState } from "recoil";
+import { audioURIPlayState, IsStarted } from "@/states/RadioState";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
+  const [isStarted, setIsStarted] = useRecoilState(IsStarted);
+  const [audioURIPlay] = useRecoilState(audioURIPlayState);
 
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
-        headerShown: false,
-      }}
-    >
-      <Tabs.Screen
-        name="about"
-        options={{
-          title: "About",
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon
-              name={focused ? "code-slash" : "information"}
-              color={color}
-            />
-          ),
+    <View style={{ flex: 1 }}>
+      {audioURIPlay.url !== "NOT_USE" || !audioURIPlay.url ? (
+        <Pressable
+          style={{
+            flex: 1,
+            position: "absolute",
+            zIndex: 1,
+            bottom: 5,
+            left: 15,
+          }}
+          onPress={() => setIsStarted(!isStarted)}
+        >
+          <Image
+            style={{ width: 40, height: 40 }}
+            source={
+              !isStarted
+                ? require(`./../../assets/Audio/download.jpg`)
+                : require(`./../../assets/Audio/pause.jpg`)
+            }
+          />
+        </Pressable>
+      ) : (
+        <></>
+      )}
+      <Tabs
+        screenOptions={{
+          tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
+          headerShown: false,
         }}
-      />
+      >
+        <Tabs.Screen
+          name="about"
+          options={{
+            title: "عنا",
+            tabBarLabelStyle: {
+              fontSize: 22,
+              fontWeight: "bold",
+              position: "relative",
+              left: 30,
+            },
+            tabBarIcon: ({ color, focused }) => (
+              <TabBarIcon
+                name={
+                  focused ? "information-circle" : "information-circle-outline"
+                }
+                color={"#92efd9"}
+                style={{ marginLeft: 60 }}
+              />
+            ),
+          }}
+        />
 
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: "Explore",
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon
-              name={focused ? "code-slash" : "code-slash-outline"}
-              color={color}
-            />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="index"
-        options={{
-          tabBarLabelStyle: {
-            fontSize: 22,
-            fontWeight: "bold",
-          },
-          title: "راديو",
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon
-              name={focused ? "radio" : "radio-outline"}
-              color={color}
-              // className={`relative right-[50px]`}
-            />
-          ),
-        }}
-      />
-    </Tabs>
+        <Tabs.Screen
+          name="readQuran"
+          options={{
+            title: "قرآن",
+            tabBarLabelStyle: {
+              fontSize: 22,
+              fontWeight: "bold",
+              position: "relative",
+              left: 20,
+            },
+            tabBarIcon: ({ focused }) => (
+              <TabBarIcon
+                name={focused ? "reader-sharp" : "reader-outline"}
+                color={"#32c5a2"}
+                style={{ marginLeft: 50, height: 27 }}
+              />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="wishlist"
+          options={{
+            tabBarLabelStyle: {
+              fontSize: 22,
+              fontWeight: "bold",
+              position: "relative",
+              left: 20,
+            },
+            title: "المفضلة",
+            tabBarIcon: ({ focused }) => (
+              <TabBarIcon
+                name={focused ? "heart" : "heart-outline"}
+                color={"#92efd9"}
+                // className={`relative right-[50px]`}
+                style={{ marginLeft: 50 }}
+              />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="index"
+          options={{
+            tabBarLabelStyle: {
+              fontSize: 22,
+              fontWeight: "bold",
+            },
+            title: "راديو",
+            tabBarIcon: ({ color, focused }) => (
+              <TabBarIcon
+                name={focused ? "radio" : "radio-outline"}
+                color={"#92efd9"}
+                // className={`relative right-[50px]`}
+              />
+            ),
+          }}
+        />
+      </Tabs>
+    </View>
   );
 }

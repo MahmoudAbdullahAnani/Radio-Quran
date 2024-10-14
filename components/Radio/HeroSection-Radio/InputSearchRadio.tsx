@@ -1,12 +1,14 @@
 import React from "react";
 import { TextInput, View } from "react-native";
 // State Mangemant
-import { kewordSearchState } from "@/states/RadioState";
+import { InitialMaxViewItems, kewordSearchState } from "@/states/RadioState";
 import { useRecoilState } from "recoil";
+import { width } from "../Radios";
 
 export default function InputSearchRadio() {
   const [kewordSearch, setKewordSearch] = useRecoilState(kewordSearchState);
 
+  const [, setMaxViewItems] = useRecoilState(InitialMaxViewItems);
   return (
     <View
       style={{
@@ -24,10 +26,11 @@ export default function InputSearchRadio() {
       <TextInput
         placeholder="محمد صديق المنشاوي"
         placeholderTextColor="#888"
-        className={`text-2xl font-bold  w-full h-full font-semibold text-center`}
+        className={`text-2xl w-full h-full font-semibold text-center`}
         style={{ color: "black" }}
         onChangeText={(text) => {
           // Handle search input change
+          setMaxViewItems(width <= 400 ? 10 : 50);
           setKewordSearch(text);
           // You can add your search logic here
         }}
