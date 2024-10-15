@@ -37,6 +37,12 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "d9aadc80-adb5-4027-b0dd-c439e7207f3c"
+      }
+    },
+    "owner": "mahmoudabdullah"
   }
 }
