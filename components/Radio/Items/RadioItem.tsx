@@ -1,6 +1,13 @@
 import { Radio } from "@/Interfaces/Radio";
-import React, { useEffect, useMemo, useState } from "react";
-import { Image, Pressable, Text, useColorScheme, View } from "react-native";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import {
+  Dimensions,
+  Image,
+  Pressable,
+  Text,
+  useColorScheme,
+  View,
+} from "react-native";
 import AudioPlayer from "./AudioPlayer";
 import { useRecoilState } from "recoil";
 import {
@@ -11,7 +18,8 @@ import {
   toggleSoundStateData,
   wishlistDataItemsState,
 } from "@/states/RadioState";
-import { width } from "../Radios";
+// import { width } from "../Radios";
+const { width } = Dimensions.get("screen");
 import AudioBar from "@/assets/Audio/AudioBar";
 import { TabBarIcon } from "@/components/navigation/TabBarIcon";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -60,15 +68,19 @@ export default function RadioItem({
   const [wishlistDataItems, setWishlistDataItemsState] = useRecoilState(
     wishlistDataItemsState
   );
-  async function setWishlistItems() {
+  const [wishlist, setWishlist] = useState<string | null>(null);
+
+  const setWishlistItems = useCallback(async () => {
     try {
-      // fake data: https://backup.qurango.net/radio/ahmed_altrabulsi+https://backup.qurango.net/radio/alqaria_yassen+https://backup.qurango.net/radio/ahmed_altrabulsi+
-      const wishlist = await AsyncStorage.getItem("wishlist");
-      const wishlistArray = wishlist?.split("+");
-      if (wishlist !== null) {
-        // value previously stored
-        setitemWishlist(!wishlistArray?.includes(radio.url));
-        !wishlistArray?.includes(radio.url) &&
+      const storedWishlist = await AsyncStorage.getItem("wishlist");
+      setWishlist(storedWishlist);
+
+      if (storedWishlist !== null) {
+        const wishlistArray = storedWishlist.split("+");
+        const isInWishlist = wishlistArray.includes(radio.url);
+        setitemWishlist(isInWishlist);
+
+        if (!isInWishlist) {
           setWishlistDataItemsState((prev) => [
             ...new Set([
               ...prev,
@@ -80,18 +92,15 @@ export default function RadioItem({
               },
             ]),
           ]);
-
-        return wishlist;
+        }
       }
-      return "Not Found wishlist";
     } catch (e) {
-      // error reading value
-      //console.log("Cant't get data to local storage. Error:" + e);
+      console.error("Error reading wishlist from AsyncStorage:", e);
     }
-  }
+  }, [radio, setWishlistDataItemsState]);
+
   useEffect(() => {
-    setWishlistItems();
-    return () => {};
+    // setWishlistItems();
   }, []);
 
   const changeWishList = async () => {
@@ -149,13 +158,14 @@ export default function RadioItem({
         onPressIn={toggleHover}
         onPressOut={toggleHover}
       >
-        <TabBarIcon
+        <View></View>
+        {/* <TabBarIcon
           // @ts-ignore
           onPress={changeWishList}
           style={{ width: 30, height: 30 }}
-          name={`${itemWishlist ? "heart-outline" : "heart"}`}
+          name={`${!itemWishlist ? "heart-outline" : "heart"}`}
           color={"#07f9c0"}
-        />
+        /> */}
         <View
           style={{
             flexDirection: "row",

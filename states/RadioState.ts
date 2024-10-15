@@ -1,7 +1,8 @@
-import { width } from "@/components/Radio/Radios";
 import { Radio } from "@/Interfaces/Radio";
+import { Dimensions } from "react-native";
 import { atom } from "recoil";
 
+const { width } = Dimensions.get("screen");
 export const kewordSearchState = atom({
   key: "kewordSearchState",
   default: "NOT_USE",

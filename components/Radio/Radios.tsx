@@ -24,7 +24,7 @@ const RadioData: RadiosResponse = RadioFakeData;
 
 // Device
 export const { width, height } = Dimensions.get("window");
-export default function Radios(functoinGetData: any) {
+export default function Radios() {
   const colorScheme = useColorScheme();
   const colorText = colorScheme === "dark" ? "#fff" : "#000";
   // State Management
@@ -47,7 +47,7 @@ export default function Radios(functoinGetData: any) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data: RadiosResponse = await functoinGetData();
+      const data: RadiosResponse = await getAllRadioData();
       setRadioDat(data);
       // setMaxViewItems(data.radios.length);
       setMaxLengthOfData(data.radios.length);
@@ -56,7 +56,7 @@ export default function Radios(functoinGetData: any) {
     return () => {};
   }, []);
   return (
-    <View
+    <View 
       className={`flex-1`}
       style={{ backgroundColor: colorScheme === "light" ? "#f2f2f2" : "#000" }}
     >
