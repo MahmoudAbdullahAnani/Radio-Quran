@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Radio Quran",
-    "slug": "Radio-Quran",
+    "slug": "radio-quran",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
