@@ -15,13 +15,21 @@ export const changeAudio = atom({
   key: "changeAudio",
   default: false as boolean,
 });
+export const currentPageState = atom({
+  key: "currentPageState",
+  default: width > 400 ? 30 : 10,
+});
 export const toggleSoundStateData = atom({
   key: "toggleSoundStateData",
   default: false as boolean,
 });
 export const InitialMaxViewItems = atom({
   key: "InitialMaxViewItems",
-  default: width <= 400 ? 10 : 50,
+  default: 0,
+});
+export const MaxLengthOfDataState = atom({
+  key: "MaxLengthOfDataState",
+  default: 0,
 });
 export const IsStarted = atom({
   key: "IsStarted",

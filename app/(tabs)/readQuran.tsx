@@ -12,6 +12,7 @@ import { Image } from "expo-image";
 import { width } from "@/components/Radio/Radios";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigationState } from "@react-navigation/native";
+import RadioItemWeb from "@/components/Radio/Items/RadioItemWeb";
 
 export default function QuranScreen() {
   const colorScheme = useColorScheme();
@@ -19,6 +20,9 @@ export default function QuranScreen() {
   function toggleFullQuran() {
     setFullQuran((prev) => !prev);
   }
+
+  const setLoadingStart = () => {};
+  const setLoadingEnd = () => {};
   return (
     <>
       <ParallaxScrollView
@@ -40,13 +44,22 @@ export default function QuranScreen() {
         ]}
         onPress={toggleFullQuran}
       >
-        <Image
+        <RadioItemWeb
+          {...{
+            styles,
+            url: getRandomNumber().urlImage,
+            setLoadingStart,
+            setLoadingEnd,
+          }}
+        />
+
+        {/* <Image
           style={styles.image}
           source={getRandomNumber().urlImage}
           // placeholder={{ blurhash }}
           contentFit="cover"
           transition={1000}
-        />
+        /> */}
       </Pressable>
     </>
   );

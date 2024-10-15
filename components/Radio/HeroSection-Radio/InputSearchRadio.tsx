@@ -1,10 +1,11 @@
 import React from "react";
-import { Image, Text, TextInput, View } from "react-native";
+import { Dimensions, Image, Text, TextInput, View } from "react-native";
 // State Mangemant
 import { InitialMaxViewItems, kewordSearchState } from "@/states/RadioState";
 import { useRecoilState } from "recoil";
-import { width } from "../Radios";
 import { useNavigationState } from "@react-navigation/native";
+
+const { width } = Dimensions.get("screen");
 
 export default function InputSearchRadio() {
   const [kewordSearch, setKewordSearch] = useRecoilState(kewordSearchState);

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { Image, useColorScheme, View } from "react-native";
+import { Image, View } from "react-native";
 import InputSearchRadio from "./InputSearchRadio";
 
 export default function HeroSectionRadio() {
-  const colorScheme = useColorScheme();
+  // const colorScheme = useColorScheme();
 
   // const colorText = colorScheme === "dark" ? "text-[#fff]" : "text-[#000]";
 
@@ -22,13 +22,14 @@ export default function HeroSectionRadio() {
     setRandomImage(images[randomIndex]);
   }, []);
   return (
-    <View className={`w-full h-full flex relative`}>
+    // w-full h-full
+    <View className={``}>
       {randomImage && (
         <Image
           source={randomImage}
           style={{
             width: "100%",
-            height: "100%",
+            height: 250,
             resizeMode: "cover",
           }}
         />

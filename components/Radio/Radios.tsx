@@ -1,24 +1,19 @@
-import ParallaxScrollView from "@/components/ParallaxScrollView";
-import HeroSectionRadio from "@/components/Radio/HeroSection-Radio/HeroSectionRadio";
-import {
-  Dimensions,
-  FlatList,
-  Image,
-  Pressable,
-  Text,
-  useColorScheme,
-  View,
-} from "react-native";
-// Images
-import { ArrowUpSVG } from "./../../assets/Audio/AutioSVG";
+import { Dimensions, FlatList, useColorScheme, View } from "react-native";
 // Fake Data
 import RadioFakeData from "../../lip/FakeData.json";
 import { Radio, RadiosResponse } from "@/Interfaces/Radio";
 import { useEffect, useState } from "react";
 import { getAllRadioData } from "@/lip/FetchData";
 import RadioItem from "@/components/Radio/Items/RadioItem";
-import { InitialMaxViewItems, kewordSearchState } from "@/states/RadioState";
+import {
+  currentPageState,
+  InitialMaxViewItems,
+  kewordSearchState,
+  MaxLengthOfDataState,
+} from "@/states/RadioState";
 import { useRecoilState } from "recoil";
+import HeroSectionRadio from "./HeroSection-Radio/HeroSectionRadio";
+import FooterListRadio from "./FooterListRadio";
 
 const RadioData: RadiosResponse = RadioFakeData;
 
@@ -26,37 +21,40 @@ const RadioData: RadiosResponse = RadioFakeData;
 export const { width, height } = Dimensions.get("window");
 export default function Radios() {
   const colorScheme = useColorScheme();
-  const colorText = colorScheme === "dark" ? "#fff" : "#000";
   // State Management
-  const [kewordSearch, setKewordSearch] = useRecoilState(kewordSearchState);
+  const [kewordSearch] = useRecoilState(kewordSearchState);
 
   // Data
-  const [maxViewItems, setMaxViewItems] = useRecoilState(InitialMaxViewItems);
-  const [maxLengthOfData, setMaxLengthOfData] = useState(0);
+  const [, setMaxPageView] = useRecoilState(InitialMaxViewItems);
+  const [currentPage] = useRecoilState(currentPageState);
+
+  const [, setMaxLengthOfData] = useRecoilState(MaxLengthOfDataState);
 
   const [radioDat, setRadioDat] = useState(RadioData);
   // Filter Data
-  const filteredRadios = radioDat.radios.filter((radio) =>
-    kewordSearch === "NOT_USE"
-      ? radioDat
-      : kewordSearch === ""
-      ? radioDat
-      : radio.name.toLowerCase().includes(kewordSearch.toLowerCase())
-  );
-  // .slice(0, maxViewItems);
+  const filteredRadios = radioDat.radios
+    .filter((radio) =>
+      kewordSearch === "NOT_USE"
+        ? radioDat
+        : kewordSearch === ""
+        ? radioDat
+        : radio.name.toLowerCase().includes(kewordSearch.toLowerCase())
+    )
+    .slice(0, width > 400 ? currentPage + 1 : currentPage);
 
   useEffect(() => {
     const fetchData = async () => {
       const data: RadiosResponse = await getAllRadioData();
       setRadioDat(data);
-      // setMaxViewItems(data.radios.length);
+      setMaxPageView(Math.ceil(data.radios.length / (width > 400 ? 10 : 20)));
+      // console.log({ maxPageView, width, data: data.radios.length });
       setMaxLengthOfData(data.radios.length);
     };
     fetchData();
     return () => {};
   }, []);
   return (
-    <View 
+    <View
       className={`flex-1`}
       style={{ backgroundColor: colorScheme === "light" ? "#f2f2f2" : "#000" }}
     >
@@ -70,6 +68,8 @@ export default function Radios() {
           keyExtractor={(item: Radio) =>
             `${Math.random()}-${item.id.toString()}`
           }
+          ListHeaderComponent={<HeroSectionRadio />}
+          ListFooterComponent={<FooterListRadio />}
         />
       ) : // 400:800
       width <= 800 ? (
@@ -83,6 +83,8 @@ export default function Radios() {
           }
           numColumns={2}
           columnWrapperStyle={{ justifyContent: "space-between", gap: 20 }}
+          ListHeaderComponent={<HeroSectionRadio />}
+          ListFooterComponent={<FooterListRadio />}
         />
       ) : (
         // 800:
@@ -96,50 +98,10 @@ export default function Radios() {
           }
           numColumns={3}
           columnWrapperStyle={{ justifyContent: "space-between", gap: 20 }}
+          ListHeaderComponent={<HeroSectionRadio />}
+          ListFooterComponent={<FooterListRadio />}
         />
       )}
-      <View>
-        {/* onst [maxViewItems, setMaxViewItems] = useState(width <= 400 ? 10 : 50);
-  const [maxLengthOfData, setMaxLengthOfData] = useState(0); */}
-        {/* <Pressable
-          style={({ pressed }) => [
-            {
-              backgroundColor: pressed
-                ? colorScheme === "dark"
-                  ? "#457169"
-                  : "#6caba0"
-                : colorScheme === "dark"
-                ? "#62a99d"
-                : "#7fddcd",
-            },
-            {
-              flex: 1,
-              width: "100%",
-              height: 40,
-              justifyContent: "center",
-              alignItems: "center",
-              borderRadius: 10,
-            },
-          ]}
-          onPress={() => {
-            maxViewItems >= maxLengthOfData
-              ? setMaxViewItems(width <= 400 ? 10 : 50)
-              : setMaxViewItems(maxViewItems + 10);
-            //console.log(maxViewItems);
-            //console.log(maxLengthOfData);
-          }}
-        >
-          <Text
-            style={{
-              color: colorText,
-              fontSize: 18,
-              fontWeight: "bold",
-            }}
-          >
-            {maxViewItems >= maxLengthOfData ? "عرض اقل" : "عرض المزيد"}
-          </Text>
-        </Pressable> */}
-      </View>
     </View>
   );
 }
