@@ -52,7 +52,6 @@ export default function RadioItem({
     setToggleSound(false);
     setIsStarted(true);
     setAudioURIPlay({ ...radio, name });
-
   };
   // Hover
   const [hoverItem, setHoverItem] = useState(false);
@@ -64,28 +63,41 @@ export default function RadioItem({
   return (
     <>
       <Pressable
-        style={({ pressed }) => [
-          {
-            backgroundColor:
-              colorScheme === "dark"
-                ? pressed
-                  ? "#f9f7f7"
-                  : "#f3f0f0"
-                : pressed
-                ? "#f9f7f7"
-                : "#ffffff",
-            width: "100%",
-            height: width <= 800 ? 60 : 80,
-            borderRadius: 10,
-            marginVertical: 10,
-            display: "flex",
-            // flex:1,
-            flexDirection: "row",
-            alignItems: "center",
-            paddingHorizontal: 5,
-            justifyContent: "space-between",
-          },
-        ]}
+        // style={({ pressed }) => [
+        //   {
+        //     backgroundColor:
+        //       colorScheme === "dark"
+        //         ? pressed
+        //           ? "#f9f7f7"
+        //           : "#f3f0f0"
+        //         : pressed
+        //         ? "#f9f7f7"
+        //         : "#ffffff",
+        //     width: "100%",
+        //     height: width <= 800 ? 60 : 80,
+        //     borderRadius: 10,
+        //     marginVertical: 10,
+        //     display: "flex",
+        //     flex: 1,
+        //     flexDirection: "row",
+        //     alignItems: "center",
+        //     paddingHorizontal: 5,
+        //     justifyContent: "space-between",
+        //   },
+        // ]}
+        style={{
+          backgroundColor: colorScheme === "dark" ? "#f3f0f0" : "#ffffff",
+          width: "100%",
+          height: width <= 800 ? 60 : 80,
+          borderRadius: 10,
+          marginVertical: 10,
+          display: "flex",
+          flex: 1,
+          flexDirection: "row",
+          alignItems: "center",
+          paddingHorizontal: 5,
+          justifyContent: "space-between",
+        }}
         onPress={toggleSound}
         onPressIn={toggleHover}
         onPressOut={toggleHover}
@@ -93,12 +105,13 @@ export default function RadioItem({
         <WishlistItem {...{ radio, index }} />
         <View
           style={{
+            display: "flex",
             flexDirection: "row",
             justifyContent: "center",
             alignItems: "center",
             gap: 5,
           }}
-          className={`flex-row`}
+          // className={`flex-row`}
         >
           <Text
             style={{
@@ -108,9 +121,7 @@ export default function RadioItem({
               color: hoverItem ? "#b7ecff" : "#000",
             }}
           >
-            {radio.name.length > 60 && width < 400
-              ? `${radio.name.slice(0, 27)}..`
-              : name}
+            {radio.name.length > 40 ? `${radio.name.slice(0, 30)}..` : name}
           </Text>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <Image

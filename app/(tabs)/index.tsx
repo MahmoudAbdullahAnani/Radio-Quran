@@ -30,6 +30,7 @@ export default function HomeScreen() {
       <SafeAreaView
         style={{
           flex: 1,
+          
           // position: "absolute",
           // top: 250,
           // left: 0,

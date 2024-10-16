@@ -54,8 +54,11 @@ export default function Radios() {
   }, []);
   return (
     <View
-      className={`flex-1`}
-      style={{ backgroundColor: colorScheme === "light" ? "#f2f2f2" : "#000" }}
+      // className={`flex-1`}
+      style={{
+        flex: 1,
+        backgroundColor: colorScheme === "light" ? "#f2f2f2" : "#000",
+      }}
     >
       {/* 0:400 */}
       {width <= 400 ? (
@@ -67,6 +70,9 @@ export default function Radios() {
           keyExtractor={(item: Radio) =>
             `${Math.random()}-${item.id.toString()}`
           }
+          // style={{
+          //   padding: 10,
+          // }}
           ListHeaderComponent={<HeroSectionRadio />}
           ListFooterComponent={<FooterListRadio />}
         />
@@ -81,7 +87,13 @@ export default function Radios() {
             `${Math.random()}-${item.id.toString()}`
           }
           numColumns={2}
-          columnWrapperStyle={{ justifyContent: "space-between", gap: 20 }}
+          columnWrapperStyle={{
+            justifyContent: "space-between",
+            gap: 20,
+          }}
+          // style={{
+          //   padding: 10,
+          // }}
           ListHeaderComponent={<HeroSectionRadio />}
           ListFooterComponent={<FooterListRadio />}
         />
@@ -96,7 +108,13 @@ export default function Radios() {
             `${Math.random()}-${item.id.toString()}`
           }
           numColumns={3}
-          columnWrapperStyle={{ justifyContent: "space-between", gap: 20 }}
+          columnWrapperStyle={{
+            justifyContent: "space-between",
+            gap: 20,
+          }}
+          // style={{
+          //   padding: 10,
+          // }}
           ListHeaderComponent={<HeroSectionRadio />}
           ListFooterComponent={<FooterListRadio />}
         />

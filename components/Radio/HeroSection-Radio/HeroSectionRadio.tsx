@@ -23,7 +23,7 @@ export default function HeroSectionRadio() {
   }, []);
   return (
     // w-full h-full
-    <View className={``}>
+    <View >
       {randomImage && (
         <Image
           source={randomImage}

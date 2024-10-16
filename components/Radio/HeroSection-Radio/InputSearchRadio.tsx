@@ -25,14 +25,18 @@ export default function InputSearchRadio() {
         maxWidth: 300,
         borderRadius: 25,
         padding: 10,
+        position: "absolute",
         top: "50%",
         left: "50%",
         transform: [{ translateX: -150 }, { translateY: -25 }],
       }}
-      className={`absolute`}
+      // className={`absolute`}
     >
       {["readQuran"].includes(currentTabName) ? (
-        <View className={`w-full h-full font-semibold text-center`}>
+        <View
+          style={{ width: "100%", height: "100%" }}
+          // className={`w-full h-full font-semibold text-center`}
+        >
           <Text
             style={{ fontSize: 22, textAlign: "center", fontWeight: "bold" }}
           >

@@ -70,8 +70,11 @@ export default function AudioPlayer() {
     return null;
   }
   return (
-    <View className={`h-[100] bg-slate-200`}>
-      <View style={styles.playr} className={``}>
+    <View
+      style={{ height: 100, backgroundColor: "#e2e8f0 " }}
+      // className={`h-[100] bg-slate-200`}
+    >
+      <View style={styles.playr} >
         <Pressable onPress={toggleSound}>
           <Image
             style={{ width: 50, height: 50 }}
