@@ -18,24 +18,11 @@ export default function HomeScreen() {
   }
   return (
     <>
-      {/* <ParallaxScrollView
-        headerImage={<HeroSectionRadio />}
-        headerBackgroundColor={{
-          dark: "#000",
-          light: "#f2f2f2",
-       
-          }}
-      >
-      </ParallaxScrollView> */}
+
       <SafeAreaView
         style={{
           flex: 1,
-          
-          // position: "absolute",
-          // top: 250,
-          // left: 0,
-          // right: 0,
-          // bottom: 0,
+
         }}
       >
         <View style={{ flex: 1 }}>

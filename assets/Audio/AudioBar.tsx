@@ -31,7 +31,6 @@ const MusicBar: React.FC = () => {
       ).start();
     };
 
-    // جميع الأعمدة تتحرك بين نفس القيم ولكن بوقت تأخير مختلف لإضفاء تباين في الحركة
     animateBar(bar1Height, 10, 25, 0);
     animateBar(bar2Height, 10, 25, 150);
     animateBar(bar3Height, 10, 25, 300);
@@ -46,12 +45,7 @@ const MusicBar: React.FC = () => {
       <Animated.View
         style={[styles.bar, { height: bar2Height, backgroundColor: "#e77627" }]}
       />
-      {/* <Animated.View
-        style={[styles.bar, { height: bar3Height, backgroundColor: "red" }]}
-      /> */}
-      {/* <Animated.View
-        style={[styles.bar, { height: bar4Height, backgroundColor: "#e5762a" }]}
-      /> */}
+
     </View>
   );
 };

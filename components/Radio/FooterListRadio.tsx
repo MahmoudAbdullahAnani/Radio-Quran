@@ -3,7 +3,7 @@ import {
   InitialMaxViewItems,
   MaxLengthOfDataState,
 } from "@/states/RadioState";
-import React, { useState } from "react";
+import React from "react";
 import { Pressable, Text, useColorScheme, View } from "react-native";
 import { useRecoilState } from "recoil";
 

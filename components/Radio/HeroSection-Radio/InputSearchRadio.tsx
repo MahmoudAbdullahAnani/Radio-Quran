@@ -1,5 +1,5 @@
 import React from "react";
-import { Dimensions, Image, Text, TextInput, View } from "react-native";
+import { Dimensions, Text, TextInput, View } from "react-native";
 // State Mangemant
 import { InitialMaxViewItems, kewordSearchState } from "@/states/RadioState";
 import { useRecoilState } from "recoil";
@@ -30,13 +30,9 @@ export default function InputSearchRadio() {
         left: "50%",
         transform: [{ translateX: -150 }, { translateY: -25 }],
       }}
-      // className={`absolute`}
     >
       {["readQuran"].includes(currentTabName) ? (
-        <View
-          style={{ width: "100%", height: "100%" }}
-          // className={`w-full h-full font-semibold text-center`}
-        >
+        <View style={{ width: "100%", height: "100%" }}>
           <Text
             style={{ fontSize: 22, textAlign: "center", fontWeight: "bold" }}
           >
@@ -54,7 +50,6 @@ export default function InputSearchRadio() {
             // Handle search input change
             setMaxViewItems(width <= 400 ? 10 : 50);
             setKewordSearch(text);
-            // You can add your search logic here
           }}
         />
       )}

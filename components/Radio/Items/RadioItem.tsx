@@ -16,7 +16,6 @@ import {
   SoundState,
   toggleSoundStateData,
 } from "@/states/RadioState";
-// import { width } from "../Radios";
 const { width } = Dimensions.get("screen");
 import AudioBar from "@/assets/Audio/AudioBar";
 import WishlistItem from "./WishlistItem";
@@ -34,7 +33,6 @@ export default function RadioItem({
   const IndexOfDigets = `${index + 1}`.split("").length;
   //
   const colorScheme = useColorScheme();
-  // const colorText = colorScheme === "dark" ? "text-[#fff]" : "text-[#000]";
   // handle sound mojawwad
   const handel_mojawwad = radio.url.split("_").includes("mojawwad");
   const name = handel_mojawwad ? `${radio.name} مجود` : `${radio.name}`;
@@ -63,28 +61,7 @@ export default function RadioItem({
   return (
     <>
       <Pressable
-        // style={({ pressed }) => [
-        //   {
-        //     backgroundColor:
-        //       colorScheme === "dark"
-        //         ? pressed
-        //           ? "#f9f7f7"
-        //           : "#f3f0f0"
-        //         : pressed
-        //         ? "#f9f7f7"
-        //         : "#ffffff",
-        //     width: "100%",
-        //     height: width <= 800 ? 60 : 80,
-        //     borderRadius: 10,
-        //     marginVertical: 10,
-        //     display: "flex",
-        //     flex: 1,
-        //     flexDirection: "row",
-        //     alignItems: "center",
-        //     paddingHorizontal: 5,
-        //     justifyContent: "space-between",
-        //   },
-        // ]}
+
         style={{
           backgroundColor: colorScheme === "dark" ? "#f3f0f0" : "#ffffff",
           width: "100%",
@@ -111,7 +88,6 @@ export default function RadioItem({
             alignItems: "center",
             gap: 5,
           }}
-          // className={`flex-row`}
         >
           <Text
             style={{

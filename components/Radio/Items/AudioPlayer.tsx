@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { View, StyleSheet, Pressable, Text, Image } from "react-native";
 import { Audio } from "expo-av";
 import { useRecoilState } from "recoil";
@@ -70,11 +70,8 @@ export default function AudioPlayer() {
     return null;
   }
   return (
-    <View
-      style={{ height: 100, backgroundColor: "#e2e8f0 " }}
-      // className={`h-[100] bg-slate-200`}
-    >
-      <View style={styles.playr} >
+    <View style={{ height: 100, backgroundColor: "#e2e8f0 " }}>
+      <View style={styles.playr}>
         <Pressable onPress={toggleSound}>
           <Image
             style={{ width: 50, height: 50 }}

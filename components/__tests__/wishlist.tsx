@@ -1,12 +1,9 @@
 import ParallaxScrollView from "@/components/ParallaxScrollView";
 import HeroSectionRadio from "@/components/Radio/HeroSection-Radio/HeroSectionRadio";
 import RadioItem from "@/components/Radio/Items/RadioItem";
-import Radios from "@/components/Radio/Radios";
 import { Radio } from "@/Interfaces/Radio";
-import { getAllRadioData } from "@/lip/FetchData";
 import { wishlistDataItemsState } from "@/states/RadioState";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { FlatList, StyleSheet } from "react-native";
 import { useRecoilState } from "recoil";
 

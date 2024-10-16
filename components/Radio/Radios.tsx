@@ -54,7 +54,6 @@ export default function Radios() {
   }, []);
   return (
     <View
-      // className={`flex-1`}
       style={{
         flex: 1,
         backgroundColor: colorScheme === "light" ? "#f2f2f2" : "#000",
@@ -70,9 +69,6 @@ export default function Radios() {
           keyExtractor={(item: Radio) =>
             `${Math.random()}-${item.id.toString()}`
           }
-          // style={{
-          //   padding: 10,
-          // }}
           ListHeaderComponent={<HeroSectionRadio />}
           ListFooterComponent={<FooterListRadio />}
         />
@@ -91,9 +87,6 @@ export default function Radios() {
             justifyContent: "space-between",
             gap: 20,
           }}
-          // style={{
-          //   padding: 10,
-          // }}
           ListHeaderComponent={<HeroSectionRadio />}
           ListFooterComponent={<FooterListRadio />}
         />
@@ -112,9 +105,6 @@ export default function Radios() {
             justifyContent: "space-between",
             gap: 20,
           }}
-          // style={{
-          //   padding: 10,
-          // }}
           ListHeaderComponent={<HeroSectionRadio />}
           ListFooterComponent={<FooterListRadio />}
         />

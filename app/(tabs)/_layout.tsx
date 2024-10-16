@@ -86,26 +86,7 @@ export default function TabLayout() {
             ),
           }}
         />
-        {/* <Tabs.Screen
-          name="wishlist"
-          options={{
-            tabBarLabelStyle: {
-              fontSize: 22,
-              fontWeight: "bold",
-              position: "relative",
-              left: 20,
-            },
-            title: "المفضلة",
-            tabBarIcon: ({ focused }) => (
-              <TabBarIcon
-                name={focused ? "heart" : "heart-outline"}
-                color={"#92efd9"}
-                // className={`relative right-[50px]`}
-                style={{ marginLeft: 50 }}
-              />
-            ),
-          }}
-        /> */}
+
         <Tabs.Screen
           name="index"
           options={{
@@ -118,7 +99,6 @@ export default function TabLayout() {
               <TabBarIcon
                 name={focused ? "radio" : "radio-outline"}
                 color={"#92efd9"}
-                // className={`relative right-[50px]`}
               />
             ),
           }}

@@ -1,17 +1,8 @@
 import ParallaxScrollView from "@/components/ParallaxScrollView";
 import HeroSectionRadio from "@/components/Radio/HeroSection-Radio/HeroSectionRadio";
-import {
-  DimensionValue,
-  Pressable,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from "react-native";
-import { Image } from "expo-image";
+import { Pressable, StyleSheet, useColorScheme } from "react-native";
 import { width } from "@/components/Radio/Radios";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { useNavigationState } from "@react-navigation/native";
+import { useState } from "react";
 import RadioItemWeb from "@/components/Radio/Items/RadioItemWeb";
 
 export default function QuranScreen() {
@@ -31,9 +22,7 @@ export default function QuranScreen() {
           dark: "#000",
           light: "#f2f2f2",
         }}
-      >
-        {/* <Text style={{ color: "red" }}>hello</Text> */}
-      </ParallaxScrollView>
+      ></ParallaxScrollView>
       <Pressable
         style={[
           styles.container,
@@ -52,14 +41,6 @@ export default function QuranScreen() {
             setLoadingEnd,
           }}
         />
-
-        {/* <Image
-          style={styles.image}
-          source={getRandomNumber().urlImage}
-          // placeholder={{ blurhash }}
-          contentFit="cover"
-          transition={1000}
-        /> */}
       </Pressable>
     </>
   );
