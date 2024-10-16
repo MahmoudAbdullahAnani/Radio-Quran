@@ -1,7 +1,10 @@
+import { getLocales } from "expo-localization";
 import React, { useEffect, useRef } from "react";
 import { Animated, View, StyleSheet } from "react-native";
 
 const MusicBar: React.FC = () => {
+  const deviceLanguage = getLocales()[0].languageCode;
+
   const bar1Height = useRef<Animated.Value>(new Animated.Value(10)).current;
   const bar2Height = useRef<Animated.Value>(new Animated.Value(10)).current;
   const bar3Height = useRef<Animated.Value>(new Animated.Value(10)).current;
@@ -38,26 +41,26 @@ const MusicBar: React.FC = () => {
   }, [bar1Height, bar2Height, bar3Height, bar4Height]);
 
   return (
-    <View style={styles.container}>
+    <View
+      style={{
+        flexDirection: deviceLanguage === "en" ? "row" : "row-reverse",
+        alignItems: "flex-end",
+        justifyContent: "center",
+        width: 22,
+        height: 22,
+      }}
+    >
       <Animated.View
         style={[styles.bar, { height: bar1Height, backgroundColor: "#ff7a1d" }]}
       />
       <Animated.View
         style={[styles.bar, { height: bar2Height, backgroundColor: "#e77627" }]}
       />
-
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    alignItems: "flex-end",
-    justifyContent: "center",
-    width: 22,
-    height: 22,
-  },
   bar: {
     width: 5,
     backgroundColor: "#000",

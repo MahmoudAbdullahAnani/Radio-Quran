@@ -34,7 +34,8 @@
       "backgroundColor": "#32c5a2"
     },
     "plugins": [
-      "expo-router"
+      "expo-router",
+      "expo-localization"
     ],
     "experiments": {
       "typedRoutes": true

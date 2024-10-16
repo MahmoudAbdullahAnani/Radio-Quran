@@ -20,6 +20,9 @@ const { width } = Dimensions.get("screen");
 import AudioBar from "@/assets/Audio/AudioBar";
 import WishlistItem from "./WishlistItem";
 
+// Localization
+import { getLocales } from "expo-localization";
+
 export default function RadioItem({
   radio,
   index,
@@ -27,6 +30,9 @@ export default function RadioItem({
   radio: Radio;
   index: number;
 }) {
+  const deviceLanguage = getLocales()[0].languageCode;
+  console.log(deviceLanguage);
+
   const [soundLoading] = useRecoilState<boolean>(changeAudio);
 
   // index of digets
@@ -61,7 +67,6 @@ export default function RadioItem({
   return (
     <>
       <Pressable
-
         style={{
           backgroundColor: colorScheme === "dark" ? "#f3f0f0" : "#ffffff",
           width: "100%",
@@ -70,7 +75,7 @@ export default function RadioItem({
           marginVertical: 10,
           display: "flex",
           flex: 1,
-          flexDirection: "row",
+          flexDirection: deviceLanguage === "en" ? "row" : "row-reverse",
           alignItems: "center",
           paddingHorizontal: 5,
           justifyContent: "space-between",
@@ -83,7 +88,7 @@ export default function RadioItem({
         <View
           style={{
             display: "flex",
-            flexDirection: "row",
+            flexDirection: deviceLanguage === "en" ? "row" : "row-reverse",
             justifyContent: "center",
             alignItems: "center",
             gap: 5,
@@ -99,7 +104,12 @@ export default function RadioItem({
           >
             {radio.name.length > 40 ? `${radio.name.slice(0, 30)}..` : name}
           </Text>
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <View
+            style={{
+              flexDirection: deviceLanguage === "en" ? "row" : "row-reverse",
+              alignItems: "center",
+            }}
+          >
             <Image
               style={{
                 width: width > 400 ? 55 : 40,

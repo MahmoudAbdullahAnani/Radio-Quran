@@ -8,8 +8,11 @@ import {
   SoundState,
   toggleSoundStateData,
 } from "@/states/RadioState";
+import { getLocales } from "expo-localization";
 
 export default function AudioPlayer() {
+  const deviceLanguage = getLocales()[0].languageCode;
+
   // State Management
   const [audioURIPlay] = useRecoilState(audioURIPlayState);
   const [sound, setSound] = useRecoilState(SoundState);
@@ -71,7 +74,17 @@ export default function AudioPlayer() {
   }
   return (
     <View style={{ height: 100, backgroundColor: "#e2e8f0 " }}>
-      <View style={styles.playr}>
+      <View
+        style={{
+          paddingHorizontal: 30,
+          width: "100%",
+          height: 50,
+          display: "flex",
+          flexDirection: deviceLanguage === "en" ? "row" : "row-reverse",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
         <Pressable onPress={toggleSound}>
           <Image
             style={{ width: 50, height: 50 }}
@@ -95,15 +108,7 @@ export default function AudioPlayer() {
 }
 
 const styles = StyleSheet.create({
-  playr: {
-    paddingHorizontal: 30,
-    width: "100%",
-    height: 50,
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
+
   textPlayr: {
     textAlign: "center",
     fontSize: 20,
@@ -111,34 +116,3 @@ const styles = StyleSheet.create({
   },
 });
 
-/*
-
-    <Pressable style={{ flex: 1 }} onPress={playSound}>
-      <View
-        style={{
-          backgroundColor: "white",
-          width: "100%",
-          height: 50,
-          borderRadius: 10,
-          marginVertical: 10,
-          display: "flex",
-          // flex:1,
-          flexDirection: "row",
-          alignItems: "center",
-          paddingHorizontal: 5,
-          justifyContent: "space-between",
-        }}
-        className={`rounded-lg`}
-      >
-        <Image
-          style={{ width: 30, height: 30 }}
-          source={require(`./../../../assets/Audio/download.jpg`)}
-        />
-        <Text style={{ textAlign: "center" }}>
-          {audioURIPlay.name.length > 60
-            ? `${audioURIPlay.name.slice(20)}..`
-            : audioURIPlay.name}
-        </Text>
-      </View>
-    </Pressable>
-*/
