@@ -40,7 +40,6 @@ export default function WishlistItem({ radio }: { radio: Radio }) {
   }, [setWishlistDataItems]);
 
   const toggleWishlist = useCallback(async () => {
-    console.log("press..");
     
     try {
       const newWishlistItems = isInWishlist()

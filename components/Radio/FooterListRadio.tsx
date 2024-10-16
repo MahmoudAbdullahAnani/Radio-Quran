@@ -38,14 +38,12 @@ export default function FooterListRadio() {
           },
         ]}
         onPress={() => {
-          console.log({ currentPage, maxLengthOfData });
-          console.log(currentPage >= maxLengthOfData);
+
 
           currentPage >= maxLengthOfData
             ? setCurrentPage(currentPage - 5)
             : setCurrentPage(currentPage + 5);
-          //console.log(maxViewItems);
-          //console.log(maxLengthOfData);
+
         }}
       >
         <Text

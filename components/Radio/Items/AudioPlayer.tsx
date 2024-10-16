@@ -19,7 +19,6 @@ export default function AudioPlayer() {
 
   const getSound = async () => {
     if (audioURIPlay.url !== "NOT_USE" && audioURIPlay.url) {
-      //console.log(`press ${audioURIPlay.url}`);
       setSoundLoading(true);
       try {
         const { sound } = await Audio.Sound.createAsync({

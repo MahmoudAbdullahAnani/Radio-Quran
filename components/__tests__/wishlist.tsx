@@ -14,7 +14,6 @@ export default function wishlistScreen() {
   const [wishlistDataItems, setWishlistDataItemsState] = useRecoilState(
     wishlistDataItemsState
   );
-  // //console.log({ wishlistDataItems });
 
   useEffect(() => {
     return () => {};

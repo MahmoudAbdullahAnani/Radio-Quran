@@ -53,7 +53,6 @@ export default function RadioItem({
     setIsStarted(true);
     setAudioURIPlay({ ...radio, name });
 
-    // //console.log(AudioURIPlay);
   };
   // Hover
   const [hoverItem, setHoverItem] = useState(false);

@@ -47,7 +47,6 @@ export default function Radios() {
       const data: RadiosResponse = await getAllRadioData();
       setRadioDat(data);
       setMaxPageView(Math.ceil(data.radios.length / (width > 400 ? 10 : 20)));
-      // console.log({ maxPageView, width, data: data.radios.length });
       setMaxLengthOfData(data.radios.length);
     };
     fetchData();
