@@ -24,7 +24,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#32c5a2"
-      }
+      },
+      "package": "com.mahmoudabdullah.radioquran"
     },
     "web": {
       "bundler": "metro",

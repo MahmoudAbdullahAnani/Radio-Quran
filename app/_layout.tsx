@@ -8,7 +8,8 @@ import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
-
+// Nativewind
+import "./../global.css";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { RecoilRoot } from "recoil";
 import AudioPlayer from "@/components/Radio/Items/AudioPlayer";
