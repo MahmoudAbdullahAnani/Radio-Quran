@@ -4,10 +4,13 @@ import { Dimensions, Text, TextInput, View } from "react-native";
 import { InitialMaxViewItems, kewordSearchState } from "@/states/RadioState";
 import { useRecoilState } from "recoil";
 import { useNavigationState } from "@react-navigation/native";
+import { getLocales } from "expo-localization";
 
 const { width } = Dimensions.get("screen");
 
 export default function InputSearchRadio() {
+  const deviceLanguage = getLocales()[0].languageCode;
+
   const [kewordSearch, setKewordSearch] = useRecoilState(kewordSearchState);
 
   const [, setMaxViewItems] = useRecoilState(InitialMaxViewItems);
@@ -28,7 +31,11 @@ export default function InputSearchRadio() {
         position: "absolute",
         top: "50%",
         left: "50%",
-        transform: [{ translateX: -150 }, { translateY: -25 }],
+        // en= -150, ar= 150
+        transform: [
+          { translateX: deviceLanguage === "en" ? -150 : 150 },
+          { translateY: -25 },
+        ],
       }}
     >
       {["readQuran"].includes(currentTabName) ? (

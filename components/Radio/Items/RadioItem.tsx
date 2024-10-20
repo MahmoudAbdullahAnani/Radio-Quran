@@ -124,7 +124,7 @@ export default function RadioItem({
                   left: "50%",
                   transform: [
                     {
-                      translateX: -10,
+                      translateX: deviceLanguage === "en" ? -10 : 10,
                     },
                   ],
                 }}
@@ -149,10 +149,16 @@ export default function RadioItem({
                     {
                       translateX:
                         IndexOfDigets === 1
-                          ? -3
+                          ? deviceLanguage === "en"
+                            ? -3
+                            : 3
                           : IndexOfDigets === 2
-                          ? -6
-                          : -12,
+                          ? deviceLanguage === "en"
+                            ? -6
+                            : 6
+                          : deviceLanguage === "en"
+                          ? -12
+                          : 12,
                     },
                   ],
                 }}
