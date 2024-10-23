@@ -18,7 +18,8 @@
         "UIBackgroundModes": [
           "audio"
         ]
-      }
+      },
+      "bundleIdentifier": "com.mahmoudabdullah.radioquran"
     },
     "android": {
       "adaptiveIcon": {
